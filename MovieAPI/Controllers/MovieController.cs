@@ -2,6 +2,7 @@
 using MovieAPI.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MovieAPI.Controllers
 {
@@ -10,12 +11,32 @@ namespace MovieAPI.Controllers
     public class MovieController : ControllerBase
     {
         private static List<Movie> movies = new List<Movie>();
+        private static int id;
 
         [HttpPost]
-        public void AddMovie([FromBody]Movie movie)
+        public IActionResult AddMovie([FromBody]Movie movie)
         {
+            movie.Id = id++;
             movies.Add(movie);
-            Console.WriteLine(movie.Title);
+            return CreatedAtAction(nameof(GetMovie), new {Id = movie.Id}, movie);
+        }
+
+        [HttpGet]
+        public IActionResult GetMovies()
+        {
+            return Ok(movies);
+        }
+
+
+        [HttpGet("{id}")]
+        public IActionResult GetMovie(int id)
+        {
+            Movie movie = movies.FirstOrDefault(Movie => Movie.Id == id);
+            if(movie != null)
+            {
+                return Ok(movie);
+            }
+            return NotFound();
         }
     }
 }
