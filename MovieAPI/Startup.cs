@@ -28,12 +28,14 @@ namespace MovieAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // AddDbContext basically starts the connection with database
             services.AddDbContext<MovieContext>(opts => opts.UseMySQL(Configuration.GetConnectionString("MovieConnection")));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MovieAPI", Version = "v1" });
             });
+            // Insert the DTO's in the code
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 

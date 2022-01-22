@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-namespace MovieAPI.Data.DTO_s
+namespace MovieAPI.Data.DTOs
 {
-    public class AddMovieDTO
+    public class UpdateMovieDTO
     {
         [Required(ErrorMessage = "The field Title is required")]
         public string Title { get; set; }

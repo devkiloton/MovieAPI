@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using MovieAPI.Data;
-using MovieAPI.Data.DTO_s;
+using MovieAPI.Data.DTOs;
 using MovieAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,9 @@ using System.Linq;
 
 namespace MovieAPI.Controllers
 {
+    // Declares that it is an API
     [ApiController]
+    // Defines the endpoint name as "movie" because "MovieController" is the class name
     [Route("[controller]")]
     public class MovieController : ControllerBase
     {
@@ -22,9 +24,13 @@ namespace MovieAPI.Controllers
             _mapper = mapper;
         }
 
+        // req verb
         [HttpPost]
-        public IActionResult AddMovie([FromBody] UpdateMovieDTO movieDTO)
+        // [FromBody] is the content from the req body
+        public IActionResult AddMovie([FromBody] AddMovieDTO movieDTO)
         {
+            // the data transfer object(dto) "movieDTO" will be converted in a Movie model
+            // through Map method
             Movie movie = _mapper.Map<Movie>(movieDTO);
             _context.Movies.Add(movie);
             _context.SaveChanges();

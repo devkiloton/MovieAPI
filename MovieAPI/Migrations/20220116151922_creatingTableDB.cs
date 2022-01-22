@@ -5,6 +5,11 @@ namespace MovieAPI.Migrations
 {
     public partial class creatingTableDB : Migration
     {
+        // How to generate a migration:
+        // open the NuGet console
+        // select the fields in the model, then run the commands below
+        // "Add-Migration migrationNameHere"
+        // "Update-Database"
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
